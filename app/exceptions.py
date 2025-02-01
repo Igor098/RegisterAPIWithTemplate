@@ -6,6 +6,11 @@ UserAlreadyExistsException = HTTPException(
     detail='Пользователь уже существует'
 )
 
+ArticleAlreadyAddedFromUser = HTTPException(
+    status_code=status.HTTP_409_CONFLICT,
+    detail='Статья уже добавлена'
+)
+
 # Пользователь не найден
 UserNotFoundException = HTTPException(
     status_code=status.HTTP_404_NOT_FOUND,

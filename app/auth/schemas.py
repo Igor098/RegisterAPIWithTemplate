@@ -4,6 +4,11 @@ from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator, mo
 from app.auth.utils import get_password_hash
 
 
+class AnswerOk(BaseModel):
+    ok: bool
+    message: str
+
+
 class EmailModel(BaseModel):
     email: EmailStr = Field(description="Электронная почта")
     model_config = ConfigDict(from_attributes=True)

@@ -61,6 +61,10 @@ class BaseDAO(Generic[T]):
         values_dict = values.model_dump(exclude_unset=True)
         logger.info(f"Добавление записи {self.model.__name__} с параметрами: {values_dict}")
         try:
+            # Проверка значений
+            for key, value in values_dict.items():
+                logger.debug(f"{key}: {value}")
+
             new_instance = self.model(**values_dict)
             self._session.add(new_instance)
             logger.info(f"Запись {self.model.__name__} успешно добавлена.")

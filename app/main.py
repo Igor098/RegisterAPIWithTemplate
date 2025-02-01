@@ -8,6 +8,7 @@ from fastapi.staticfiles import StaticFiles
 from loguru import logger
 
 from app.auth.router import router as router_auth
+from app.news.router import router as router_news
 
 
 @asynccontextmanager
@@ -75,6 +76,7 @@ def register_routers(app: FastAPI) -> None:
     # Подключение роутеров
     app.include_router(root_router, tags=["root"])
     app.include_router(router_auth, prefix='/auth', tags=['Auth'])
+    app.include_router(router_news, prefix='/news', tags=['News'])
 
 
 # Создание экземпляра приложения
