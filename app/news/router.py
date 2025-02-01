@@ -7,10 +7,10 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.auth.models import User
 from app.dependencies.auth_dep import get_current_user
 from app.dependencies.dao_dep import get_session_with_commit, get_session_without_commit
-from app.exceptions import ArticleAlreadyAddedFromUser
+from app.exceptions import ArticleAlreadyAddedFromUser, ArticleNotFoundException
 from app.news.dao import SourceDAO, NewsDAO, NewsUsersDAO
 from app.news.schemas import SSourceModel, NewsModel, SourceModel, SNewsAddModel, NewsUsersModel, \
-    SNewsModel, UserNews, AnswerOk
+    SNewsModel, UserNews, AnswerOk, DeletedNewsSchema
 
 router = APIRouter()
 
@@ -29,7 +29,7 @@ async def add_news(
         article: NewsModel,
         user_data: User = Depends(get_current_user),
         session: AsyncSession = Depends(get_session_with_commit)
-) -> AnswerOk:
+) -> NewsModel:
 
     source_dao = SourceDAO(session)
     news_dao = NewsDAO(session)
@@ -57,5 +57,21 @@ async def add_news(
 
     await news_users_dao.add(values=NewsUsersModel(user_id=user_data.id, news_id=search_article.id))
 
-    return AnswerOk(ok=True, message="Новость добавлена")
+    return article
 
+
+@router.delete("/delete")
+async def delete_news(
+        article_id: str,
+        user_data: User = Depends(get_current_user),
+        session: AsyncSession = Depends(get_session_with_commit)
+) -> DeletedNewsSchema:
+
+    news_users_dao = NewsUsersDAO(session)
+    search_article = await news_users_dao.find_one_or_none(filters=NewsUsersModel(user_id=user_data.id, news_id=article_id))
+    if not search_article:
+        raise ArticleNotFoundException
+
+    await news_users_dao.delete(filters=NewsUsersModel(user_id=user_data.id, news_id=article_id))
+
+    return DeletedNewsSchema(id=article_id)

@@ -23,6 +23,11 @@ UserIdNotFoundException = HTTPException(
     detail='Отсутствует идентификатор пользователя'
 )
 
+ArticleNotFoundException = HTTPException(
+    status_code=status.HTTP_404_NOT_FOUND,
+    detail='Запись с новостью не найдена'
+)
+
 # Неверная почта или пароль
 IncorrectEmailOrPasswordException = HTTPException(
     status_code=status.HTTP_400_BAD_REQUEST,

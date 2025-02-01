@@ -11,13 +11,13 @@ class AnswerOk(BaseModel):
 
 
 class SSourceModel(BaseModel):
-    name: str = Field(min_length=3, max_length=50, description="Название ресурса, от 4 до 50 символов")
+    name: str = Field(min_length=3, max_length=100, description="Название ресурса, от 4 до 50 символов")
     model_config = ConfigDict(from_attributes=True)
 
 
 class SourceModel(BaseModel):
-    name: str = Field(min_length=3, max_length=50, description="Название ресурса, от 4 до 50 символов")
-    url: str = Field(min_length=3, max_length=50, description="Ссылка на ресурс, от 4 до 50 символов")
+    name: str = Field(min_length=3, max_length=100, description="Название ресурса, от 4 до 50 символов")
+    url: str = Field(min_length=3, max_length=100, description="Ссылка на ресурс, от 4 до 50 символов")
     model_config = ConfigDict(from_attributes=True)
 
 
@@ -31,11 +31,11 @@ class SourceSchema(BaseModel):
 
 class NewsModel(BaseModel):
     id: str = Field(min_length=3, max_length=50, description="Уникальный идентификатор UUID")
-    title: str = Field(min_length=4, max_length=50, description="Заголовок для новости, от 4 до 50 символов")
+    title: str = Field(min_length=4, max_length=200, description="Заголовок для новости, от 4 до 50 символов")
     description: str = Field(min_length=4, description="Краткое описание новости, от 4 символов")
     content: str = Field(min_length=20, description="Полное описание новости, от 20 символов")
-    url: str = Field(min_length=4, max_length=100, description="Ссылка на новость, от 4 до 100 символов")
-    image: str = Field(min_length=4, max_length=100, description="Ссылка на изображение, от 4 до 100 символов")
+    url: str = Field(min_length=4, description="Ссылка на новость, от 4 до 100 символов")
+    image: str = Field(min_length=4, description="Ссылка на изображение, от 4 до 100 символов")
     publishedAt: str
     source: SourceModel
     model_config = ConfigDict(from_attributes=True)
@@ -43,18 +43,18 @@ class NewsModel(BaseModel):
 
 class SNewsAddModel(BaseModel):
     id: str = Field(min_length=3, max_length=50, description="Уникальный идентификатор UUID")
-    title: str = Field(min_length=4, max_length=50, description="Заголовок для новости, от 4 до 50 символов")
+    title: str = Field(min_length=4, max_length=200, description="Заголовок для новости, от 4 до 50 символов")
     description: str = Field(min_length=4, description="Краткое описание новости, от 4 символов")
     content: str = Field(min_length=20, description="Полное описание новости, от 20 символов")
-    url: str = Field(min_length=4, max_length=100, description="Ссылка на новость, от 4 до 100 символов")
-    image: str = Field(min_length=4, max_length=100, description="Ссылка на изображение, от 4 до 100 символов")
+    url: str = Field(min_length=4, description="Ссылка на новость, от 4 до 100 символов")
+    image: str = Field(min_length=4, description="Ссылка на изображение, от 4 до 100 символов")
     publishedAt: str
     source_id: int
     model_config = ConfigDict(from_attributes=True)
 
 
 class SNewsModel(BaseModel):
-    title: str = Field(min_length=4, max_length=50, description="Заголовок для новости, от 4 до 50 символов")
+    title: str = Field(min_length=4, max_length=200, description="Заголовок для новости, от 4 до 50 символов")
 
 
 class NewsUsersModel(BaseModel):
@@ -106,3 +106,7 @@ class UserNews(BaseModel):
     description: str
     image: str
     source: UserSource
+
+
+class DeletedNewsSchema(BaseModel):
+    id: str
