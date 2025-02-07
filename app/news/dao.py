@@ -1,5 +1,4 @@
 import asyncio
-from functools import reduce
 
 from loguru import logger
 from sqlalchemy import select
