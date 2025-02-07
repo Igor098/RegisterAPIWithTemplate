@@ -4,12 +4,12 @@ from fastapi import APIRouter, Depends
 from loguru import logger
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.auth.models import User
-from app.dependencies.auth_dep import get_current_user
-from app.dependencies.dao_dep import get_session_with_commit, get_session_without_commit
-from app.exceptions import ArticleAlreadyAddedFromUser, ArticleNotFoundException
-from app.news.dao import SourceDAO, NewsDAO, NewsUsersDAO
-from app.news.schemas import SSourceModel, NewsModel, SourceModel, SNewsAddModel, NewsUsersModel, \
+from auth.models import User
+from dependencies.auth_dep import get_current_user
+from dependencies.dao_dep import get_session_with_commit, get_session_without_commit
+from exceptions import ArticleAlreadyAddedFromUser, ArticleNotFoundException
+from news.dao import SourceDAO, NewsDAO, NewsUsersDAO
+from news.schemas import SSourceModel, NewsModel, SourceModel, SNewsAddModel, NewsUsersModel, \
     SNewsModel, UserNews, AnswerOk, DeletedNewsSchema
 
 router = APIRouter()

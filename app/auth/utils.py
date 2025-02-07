@@ -2,7 +2,7 @@ from passlib.context import CryptContext
 from jose import jwt
 from datetime import datetime, timedelta, timezone
 from fastapi.responses import Response
-from app.config import settings
+from config import settings
 
 
 def create_tokens(data: dict) -> dict:

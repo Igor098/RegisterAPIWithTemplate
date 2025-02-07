@@ -5,9 +5,9 @@ from sqlalchemy import select
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import joinedload
 
-from app.dao.base import BaseDAO
-from app.news.models import News, Source, NewsUsers
-from app.news.utils import transform
+from dao.base import BaseDAO
+from news.models import News, Source, NewsUsers
+from news.utils import transform
 
 
 class NewsDAO(BaseDAO):

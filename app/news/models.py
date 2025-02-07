@@ -3,7 +3,7 @@ from datetime import datetime
 from sqlalchemy import Integer, String, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.dao.database import Base, str_uniq
+from dao.database import Base, str_uniq
 
 
 class Source(Base):

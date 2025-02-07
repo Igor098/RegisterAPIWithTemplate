@@ -1,4 +1,4 @@
-from app.news.schemas import NewsFromUserDBSchema
+from news.schemas import NewsFromUserDBSchema
 
 
 async def transform(item):
